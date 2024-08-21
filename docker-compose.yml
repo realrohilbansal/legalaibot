@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+  mlflow:
+    image: mlflow/mlflow:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
